@@ -14,6 +14,15 @@ This project contains a pair of C++ programs for encrypting and decrypting files
 
 ## Usage
 
+### Clone
+
+Clone the repository using the following command:
+
+```bash
+git clone https://github.com/Falcn8/FastCryptor.git
+cd FastCryptor
+```
+
 ### Compile
 
 To compile the programs, run the `compile.sh` file. This will compile the programs and place the executables in the `build/` directory.
