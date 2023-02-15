@@ -27,15 +27,11 @@
 
 This project contains a pair of **C++** programs for encrypting and decrypting files using the **XOR cipher**. The programs are designed to be fast and efficient, and can encrypt/decrypt entire directories, **including subdirectories**. The programs are written in C++ and are **cross-platform**. The programs are designed to be used in the terminal. I also added a `compile.sh` file to compile the programs.
 
----
-
 ## Features
 
 - Encrypts files using a key.
 - Decrypts files encrypted using the encryption program.
 - Can encrypt/decrypt entire directories, including subdirectories.
-
----
 
 ## Usage
 
@@ -59,8 +55,6 @@ To encrypt a directory, run the encryption program in the directory you want to 
 ### Decryption
 
 To decrypt a directory, run the decryption program in the directory you want to decrypt.
-
----
 
 ## Note
 
