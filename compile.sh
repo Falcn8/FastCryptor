@@ -1,4 +1,5 @@
 read -p "Enter which version to compile (v1/v2): " version
+mkdir -p build/
 if [ $version == "v1" ]; then
     echo "~~ FC1 Compiler ~~"
     if test -f "src/v1/encrypt.cpp" && test -f "src/v1/decrypt.cpp"; then
