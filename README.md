@@ -62,11 +62,6 @@ To encrypt a directory, run the encryption program in the directory you want to 
 
 To decrypt a directory, run the decryption program in the directory you want to decrypt.
 
-## Note
-
-- Make sure to keep the key used for encryption safe, as it is required for decryption.
-- Use this program at your own risk. The author takes no responsibility for any data loss or corruption that may occur.
-
 ## About v4
 
 We introduced a `BUFFER_SIZE` constant to determine the size of the buffer used for reading and processing file data. Adjust this value based on your specific requirements.  
@@ -93,3 +88,8 @@ Key Features:
 5. User-Friendly Interface: FastCryptor features an intuitive interface that makes it easy for anyone to use, regardless of their technical expertise. Simply select the directory you want to encrypt, and FastCryptor takes care of the rest. It's encryption made simple.  
 
 Experience the power of FastCryptor today and enjoy the peace of mind that comes with knowing your files are secure. Say goodbye to data breaches and hello to enhanced privacy and protection. Don't wait, take control of your data security now!  
+
+## Note
+
+- Make sure to keep the key used for encryption safe, as it is required for decryption.
+- Use this program at your own risk. The author takes no responsibility for any data loss or corruption that may occur.
