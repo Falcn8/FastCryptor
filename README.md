@@ -71,7 +71,7 @@ Encryption progress is no longer displayed for each file individually but instea
 
 ## Advertisement
 
-Introducing FastCryptor: The Ultimate File Encryption Solution!  
+*Introducing FastCryptor: The Ultimate File Encryption Solution!*  
 
 Are you concerned about the security of your sensitive files? Look no further! FastCryptor is here to protect your valuable data with its advanced encryption features.  
 
